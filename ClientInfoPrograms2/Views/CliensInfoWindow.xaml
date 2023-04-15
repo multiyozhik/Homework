@@ -1,0 +1,92 @@
+﻿<Window x:Class="ClientsInfoProgram.Views.ClientsInfoWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ClientsInfoProgram.Views" 
+        xmlns:viewmodels="clr-namespace:ClientsInfoProgram.ViewModels" 
+        d:DataContext="{d:DesignInstance Type=viewmodels:ClientVM}"
+		mc:Ignorable="d"
+        Title="Данные клиентов банка"
+		Height="500" Width="1200"
+		MaxHeight="800" MaxWidth="1500"
+		MinHeight="200" MinWidth="400">
+
+	<Window.Resources>
+		<local:BindingProxy x:Key="proxy" Data="{Binding}" />
+	</Window.Resources>
+
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="Auto"/>
+			<ColumnDefinition Width="*"/>
+		</Grid.ColumnDefinitions>
+		<StackPanel Grid.Column="0">
+			<ComboBox x:Name="Departments" Margin="10"	 
+					  DisplayMemberPath="Name"
+					  ItemsSource = "{Binding DepartmentsList}"
+					  SelectedItem="{Binding SelectedDepartment}"  />							
+			<Button x:Name="SaveButton"			
+				Margin="5" 
+				Padding="5" 
+				HorizontalAlignment="Center" 
+				Click="SaveButton_Click">
+				Сохранить и закрыть
+			</Button>
+		</StackPanel>
+		<DataGrid x:Name="ClientsTable" ItemsSource="{Binding DisplayedClientsList, 
+            NotifyOnSourceUpdated=True,  UpdateSourceTrigger=PropertyChanged}" 
+                  CanUserAddRows="{Binding IsCanAddNewClient}"
+				  AutoGenerateColumns="False" Grid.Column="1">
+			<DataGrid.Columns>	
+				<DataGridTextColumn 
+					Header="Фамилия"
+					IsReadOnly="{Binding Source={StaticResource proxy}, Path = Data.IsReadOnly}"
+					Binding="{Binding LastName}"/>
+				<DataGridTextColumn 
+					Header="Имя" 
+					IsReadOnly="{Binding Source={StaticResource proxy}, Path = Data.IsReadOnly}"
+					Binding="{Binding FirstName}"/>
+				<DataGridTextColumn 
+					Header="Отчество"
+					IsReadOnly="{Binding Source={StaticResource proxy}, Path = Data.IsReadOnly}"
+					Binding="{Binding MiddleName}"/>
+				<DataGridTextColumn
+					Header="Номер телефона" 					
+					Binding="{Binding PhoneNumber, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" >
+					<DataGridTextColumn.ElementStyle>
+						<Style TargetType="{x:Type TextBlock}">
+							<Style.Triggers>
+								<Trigger Property="Validation.HasError" Value="true">
+									<Setter Property="ToolTip"
+											Value="{Binding RelativeSource={RelativeSource Self}, 
+										Path=(Validation.Errors)[0].ErrorContent}"/>
+								</Trigger>
+							</Style.Triggers>
+						</Style>
+					</DataGridTextColumn.ElementStyle>
+				</DataGridTextColumn>					
+				<DataGridTextColumn 
+					Header="Серия и номер паспорта" 
+					IsReadOnly="{Binding Source={StaticResource proxy}, Path = Data.IsReadOnly}"
+					Binding="{Binding Passport}"/>
+				<DataGridTextColumn 
+					Header="Дата и время изменения записей"		
+					IsReadOnly="True"
+					Binding="{Binding ChangingTime}"/>
+				<DataGridTextColumn 
+					Header="Какие данные изменены"		
+					IsReadOnly="True"
+					Binding="{Binding ChangedData}"/>
+				<DataGridTextColumn 
+					Header="Тип изменений" 		
+					IsReadOnly="True"
+					Binding="{Binding ChangingType}"/>
+				<DataGridTextColumn 
+					Header="Кто изменил данные"
+					IsReadOnly="True"
+					Binding="{Binding LastChanger}"/>
+			</DataGrid.Columns>
+		</DataGrid>			
+	</Grid>
+</Window>

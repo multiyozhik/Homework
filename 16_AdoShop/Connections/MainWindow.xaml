@@ -1,0 +1,33 @@
+﻿<Window x:Class="Connections.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Connections"
+        mc:Ignorable="d"
+        Title="Интернет-магазин бытовой техники" Height="450" Width="800">
+    <DockPanel>
+        <Menu DockPanel.Dock="Top" VerticalAlignment="Top" HorizontalAlignment="Left" Padding="5">
+            <MenuItem Header="Подключить базу данных" >
+                <MenuItem Header="База MSSQLLocalDB" Click="MSSQLLocalDB_Click"/>
+                <MenuItem Header="База MS Access" Click="MSAccess_Click"/>
+            </MenuItem>
+            <MenuItem x:Name="ClientsData" Header="База клиентов" Click="ClientsData_Click"/>
+            <MenuItem x:Name="ShoppingData" Header="База покупок" Click="ShoppingData_Click"/>
+        </Menu>
+        <StackPanel DockPanel.Dock="Left" Width="200">
+            <Button x:Name="AddClient" Content="Добавить клиента" Click="AddClient_Click"/>
+            <Button x:Name="ChangeClientData" Content="Изменить данные клиента" Click="ChangeClientData_Click"/>
+            <Button x:Name="ShoppingInfo" Content="Показать покупки клиента" Click="ShoppingInfo_Click"/>
+            <Button x:Name="DoShopping" Content="Совершить новую покупку" Click="DoShopping_Click"/>
+            <Button x:Name="DeleteClient" Content="Удалить клиента" Click="DeleteClient_Click"/>
+            <Button x:Name="ClearDatabase" Content="Очистить базу" Click="ClearDatabase_Click"/>
+        </StackPanel>
+        <StackPanel>            
+            <DataGrid x:Name="DataGrid"
+                  AutoGenerateColumns="True"
+                  ItemsSource="{Binding}">
+            </DataGrid>
+        </StackPanel>
+    </DockPanel>
+</Window>

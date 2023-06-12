@@ -1,0 +1,17 @@
+﻿<Window x:Class="AdoShop.Views.LoadDBWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AdoShop.Views"
+        mc:Ignorable="d"
+        Title="Интернет-магазин бытовой техники" Height="450" Width="800">
+    <Grid>
+        <Menu Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Width="200">
+            <MenuItem Header="Подключить базу данных" Width="Auto" Height="30" >
+                <Button Content="База MSSQLLocalDB"/>
+                <Button Content="База MS Access"/>
+            </MenuItem>
+        </Menu>
+    </Grid>
+</Window>

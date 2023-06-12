@@ -1,0 +1,9 @@
+﻿<Application x:Class="AdoShop.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:AdoShop"
+             StartupUri="AdoShop.Views.LoadDBWindow.xaml">
+    <Application.Resources>
+
+    </Application.Resources>
+</Application>

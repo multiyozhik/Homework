@@ -1,0 +1,5 @@
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=(localdb)\\MSSQLLocalDB;Database=HouseholdAppliancesStore;User Id=Login;Password=12345;"
+  }
+}

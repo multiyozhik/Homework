@@ -1,4 +1,5 @@
-﻿using System;
+﻿using _18_Animals.Models;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -13,5 +14,6 @@ namespace _18_Animals
 	/// </summary>
 	public partial class App : Application
 	{
+		
 	}
 }

@@ -3,10 +3,24 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:local="clr-namespace:_18_Animals"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-
+        <StackPanel>
+            <TextBlock Text="Класс животного" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="5" />
+            <ComboBox x:Name="AnimalClass" Width="200" IsDropDownOpen="True" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="5">
+                <sys:String>пресмыкающееся</sys:String>
+                <sys:String>земноводное</sys:String>
+                <sys:String>млекопитающее</sys:String>                
+            </ComboBox>
+            <Button Content="Создать" Click ="CreateButton_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="5"/>
+            <TextBlock Text="Сохранить список животных в:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="5"/>
+            <ComboBox x:Name="SaveTo" Width="200" IsDropDownOpen="True" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="5">
+                <sys:String>txt-файл</sys:String>
+            </ComboBox>
+            <Button Content="Сохранить" Click ="SaveButton_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="5"/>
+        </StackPanel>
     </Grid>
 </Window>

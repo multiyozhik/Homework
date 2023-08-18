@@ -10,7 +10,7 @@ namespace _18_Animals.Views
 
 		public string? NickName => NickNameTextBox.Text;
 
-		public string? Name => AnimalNameComboBox.SelectedItem?.ToString();
+		public string? AnimalSpecies => AnimalSpeciesComboBox.SelectedItem?.ToString();
 
 		string? gender;		
 		public string? Gender
@@ -27,7 +27,7 @@ namespace _18_Animals.Views
 			AnimalClassComboBox.ItemsSource = new List<string>() { "пресмыкающееся", "земноводное", "млекопитающее", "птица", "рыба" };
 			GenderComboBox.ItemsSource = new List<string> { "самец", "самка", "не определен" };
 			AnimalClassComboBox.SelectionChanged +=
-				(s, e) => AnimalNameComboBox.ItemsSource = AnimalClassComboBox.SelectedItem.ToString() switch
+				(s, e) => AnimalSpeciesComboBox.ItemsSource = AnimalClassComboBox.SelectedItem.ToString() switch
 				{
 					"пресмыкающееся" => new List<string>() { "ящерица", "змея", "крокодил" },
 					"земноводное" => new List<string>() { "лягушка", "тритон" },

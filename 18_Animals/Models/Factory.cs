@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows;
 
 namespace _18_Animals.Models
 {
@@ -8,7 +9,8 @@ namespace _18_Animals.Models
 		public static IAnimal Create(AnimalData animalData)
 		{
 			var id = Guid.NewGuid().ToString();
-			return animalData switch
+			// получаем результат из switch-выражения, используем кортеж
+			return animalData switch 
 			{
 				var (className, name, nickName, gender, birthDay) => className switch
 				{
@@ -16,7 +18,8 @@ namespace _18_Animals.Models
 					"земноводное" => new Amphibian(id, name, nickName, gender, birthDay),
 					"млекопитающее" => new Mammal(id, name, nickName, gender, birthDay),
 					"птица" => new Bird(id, name, nickName, gender, birthDay),
-					"рыба" => new Fish(id, name, nickName, gender, birthDay)
+					"рыба" => new Fish(id, name, nickName, gender, birthDay),
+					_ => new NullAnimal()
 				}
 			};
 		}

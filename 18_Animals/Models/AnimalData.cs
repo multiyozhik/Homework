@@ -2,7 +2,7 @@
 
 namespace _18_Animals.Models
 {
-	record AnimalData(string className, string name, string? nickName, string? gender, DateTime? birthDay)
+	record AnimalData(string ClassName, string AnimalSpecies, string? NickName, string? Gender, DateTime? BirthDay)
 	{ 
 
 	}

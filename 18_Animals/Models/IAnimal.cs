@@ -6,7 +6,7 @@ namespace _18_Animals.Models
 	{
 		string? AnimalClass { get; }
 		string? Id { get; }
-		string? Name { get; }
+		string? AnimalSpecies { get; }
 		string? NickName { get; }
 		string? Gender { get; set; }
 		DateTime? BirthDay { get; }

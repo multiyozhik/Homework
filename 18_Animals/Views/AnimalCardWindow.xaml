@@ -12,7 +12,7 @@
             <TextBlock Text="Класс животного" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5"/>
             <ComboBox x:Name="AnimalClassComboBox" IsEditable="True" Width="200" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5"/>
             <TextBlock Text="Название животного" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5"/>
-            <ComboBox x:Name="AnimalNameComboBox" IsEditable="True" Width="200" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5"/>
+            <ComboBox x:Name="AnimalSpeciesComboBox" IsEditable="True" Width="200" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5"/>
             <TextBlock Text="Кличка" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5"/>
             <TextBox x:Name="NickNameTextBox" Width="200" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5"/>
             <TextBlock Text="Пол" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5"/>

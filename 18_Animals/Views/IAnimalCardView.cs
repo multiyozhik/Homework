@@ -8,7 +8,7 @@ namespace _18_Animals.Views
 
 		public string? NickName { get; }
 
-		public string? Name { get; }
+		public string? AnimalSpecies { get; }
 
 		public string? Gender { get; set; }
 		

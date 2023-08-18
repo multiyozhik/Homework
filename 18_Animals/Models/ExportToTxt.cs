@@ -13,7 +13,7 @@ namespace _18_Animals.Models
 			using StreamWriter writer = new(path, false);
 			foreach (var animal in animalsList)
 			{
-				writer.WriteLine(animal.Name);
+				writer.WriteLine(animal.AnimalSpecies);
 			}
 		}
 	}

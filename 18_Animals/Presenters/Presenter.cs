@@ -23,7 +23,7 @@ namespace _18_Animals.Presenters
 
 			var animalData = new AnimalData(
 				animalCardWindow.AnimalClass,
-				animalCardWindow.Name,
+				animalCardWindow.AnimalSpecies,
 				animalCardWindow.NickName,
 				animalCardWindow.Gender,
 				animalCardWindow.BirthDay);
@@ -36,7 +36,7 @@ namespace _18_Animals.Presenters
 		{
 			var selectedAnimal = applicationView.SelectedAnimal;
 			if (selectedAnimal is null) return;
-			var animalDescription = $"Id {selectedAnimal.Id} - {selectedAnimal.Name} {selectedAnimal.NickName}";
+			var animalDescription = $"Id {selectedAnimal.Id} - {selectedAnimal.AnimalSpecies} {selectedAnimal.NickName}";
 			var animalChangingsWindow = new AnimalChangingsWindow(animalDescription);
 			var result = animalChangingsWindow.ShowDialog();
 			if (result is not true) return;

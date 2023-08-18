@@ -11,16 +11,16 @@ namespace _18_Animals.Models
 {
 	class Fish : IAnimal
 	{
-		public string AnimalClass => "рыба";
-		public string Id { get; }
-		public string Name { get; }
-		public string NickName { get; }
-		public string Gender { get; set; }
+		public string? AnimalClass => "рыба";
+		public string? Id { get; }
+		public string? AnimalSpecies { get; }
+		public string? NickName { get; }
+		public string? Gender { get; set; }
 		public DateTime? BirthDay { get; }
-		public Fish(string id, string name, string nickName, string gender, DateTime? birthDay)
+		public Fish(string id, string animalSpecies, string nickName, string gender, DateTime? birthDay)
 		{
 			Id = id;
-			Name = name;
+			AnimalSpecies = animalSpecies;
 			NickName = nickName;
 			Gender = gender;
 			BirthDay = birthDay;

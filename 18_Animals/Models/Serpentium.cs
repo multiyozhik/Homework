@@ -1,14 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace _18_Animals.Models
 {
-	//record (по сути это record class ссылочный, уже под капотом с-во Name и конструктор с инициал. Name)
-	record Serpentium(string Name) : IAnimal 
+	class Serpentium : IAnimal
 	{
-		public string ClassName => "пресмыкающееся";
+		public string AnimalClass => "пресмыкающееся";
+		public string Id { get; }
+		public string Name { get; }
+		public string NickName { get; }
+		public string Gender { get; set; }
+		public DateTime? BirthDay { get; }
+		public Serpentium(string id, string name, string nickName, string gender, DateTime? birthDay)
+		{
+			Id = id;
+			Name = name;
+			NickName = nickName;
+			Gender = gender;
+			BirthDay = birthDay;
+		}
 	}
 }

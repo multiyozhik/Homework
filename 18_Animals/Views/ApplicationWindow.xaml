@@ -1,0 +1,43 @@
+﻿<Window x:Class="_18_Animals.Views.ApplicationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"   
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:local="clr-namespace:_18_Animals"
+        mc:Ignorable="d"
+        Title='Программа учета животных "Zoo-Нямняша"' Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <ListView x:Name="AnimalsListView" Grid.Column="0" Margin="5" Padding="5">
+            <ListView.View>
+                <GridView >
+                    <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Path=Id}"/>
+                    <GridViewColumn Header="Класс" DisplayMemberBinding="{Binding Path=AnimalClass}"/>
+                    <GridViewColumn Header="Название" DisplayMemberBinding="{Binding Path=Name}"/>
+                    <GridViewColumn Header="Кличка" DisplayMemberBinding="{Binding Path=NickName}"/>
+                    <GridViewColumn Header="Пол" DisplayMemberBinding="{Binding Path=Gender}"/>
+                    <GridViewColumn Header="Дата рождения" DisplayMemberBinding="{Binding Path=BirthDay}"/>                    
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <DockPanel Grid.Column="1">
+            <StackPanel DockPanel.Dock="Top">
+                <Button x:Name="AddButton" Content="Добавить животное" Margin="5" Padding="5"/>
+                <Button x:Name="ChangeButton" Content="Изменить животное" Margin="5" Padding="5"/>
+                <Button x:Name="RemoveButton" Content="Удалить животное" Margin="5" Padding="5"/>
+            </StackPanel>
+            <Border DockPanel.Dock="Bottom" 
+                    Margin="5" VerticalAlignment="Bottom">
+                <StackPanel>
+                    <TextBlock Text="Сохранить список животных в:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="5"/>
+                    <ComboBox x:Name="ExportFormatComboBox" Width="150" IsDropDownOpen="True" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="5"/>
+                    <Button x:Name="ExportButton" Content="Сохранить" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="5"/>
+                </StackPanel>
+            </Border>
+        </DockPanel>
+    </Grid>
+</Window>

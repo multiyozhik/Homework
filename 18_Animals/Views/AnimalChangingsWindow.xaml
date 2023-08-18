@@ -1,0 +1,18 @@
+﻿<Window x:Class="_18_Animals.Views.AnimalChangingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:_18_Animals.Views"
+        mc:Ignorable="d"
+        Title="Изменение характеристик животного" Height="600" Width="400">
+    <Grid>
+        <StackPanel>
+            <TextBlock Text="Животное:" Margin="5" Padding="5"/>
+            <TextBlock x:Name="AnimalDiscription" Margin="5" Padding="5" TextWrapping="Wrap"/>
+            <TextBlock Text="Уточните пол животного:" Margin="5" Padding="5"/>
+            <ComboBox x:Name="GenderComboBox" Margin="5" Padding="5"/>
+            <Button x:Name="SaveChangingsButton" Content="Сохранить изменения" Margin="5" Padding="5"/>
+        </StackPanel>
+    </Grid>
+</Window>

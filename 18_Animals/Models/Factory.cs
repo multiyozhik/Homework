@@ -1,23 +1,24 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace _18_Animals.Models
 {
-	class Factory : IFactory //конкретная реализация ICreator
+	static class Factory
 	{
-		Random random = new();
-		List<string> classNamesList = new() { "пресмыкающееся", "земноводное", "млекопитающее" };
-		List<string> serpentiumsNamesList = new() { "змея", "ящерица", "хамелеон", "игуана", "варан", "крокодил", "черепаха", "гаттерия" };
-		List<string> amphibiansNamesList = new() { "лягушка", "жаба", "тритон", "саламандра", "червяга", "ацелот" };
-		List<string> mammalsNamesList = new() { "ехидна", "опоссум", "летучая мышь", "крот", "обезьяна", "дельфин", "заяц" };
-		public IAnimal Create(string className) => className switch
+		//фабрика генерит конкретные реализации типа IAnimal по заданному классу животного (тут полиморфизм)
+		public static IAnimal Create(AnimalData animalData)
 		{
-			"пресмыкающееся" => new Serpentium(serpentiumsNamesList[random.Next(serpentiumsNamesList.Count)]),
-			"земноводное" => new Amphibian(amphibiansNamesList[random.Next(amphibiansNamesList.Count)]),
-			"млекопитающее" => new Mammal(mammalsNamesList[random.Next(mammalsNamesList.Count)])
-		};
+			var id = Guid.NewGuid().ToString();
+			return animalData switch
+			{
+				var (className, name, nickName, gender, birthDay) => className switch
+				{
+					"пресмыкающееся" => new Serpentium(id, name, nickName, gender, birthDay),
+					"земноводное" => new Amphibian(id, name, nickName, gender, birthDay),
+					"млекопитающее" => new Mammal(id, name, nickName, gender, birthDay),
+					"птица" => new Bird(id, name, nickName, gender, birthDay),
+					"рыба" => new Fish(id, name, nickName, gender, birthDay)
+				}
+			};
+		}
 	}
 }

@@ -1,0 +1,25 @@
+﻿<Window x:Class="_18_Animals.Views.AnimalCardWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:local="clr-namespace:_18_Animals"
+        mc:Ignorable="d"
+        Title="Карточка животного" Height="600" Width="400">
+    <Grid>
+        <StackPanel HorizontalAlignment="Center">
+            <TextBlock Text="Класс животного" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5"/>
+            <ComboBox x:Name="AnimalClassComboBox" IsEditable="True" Width="200" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5"/>
+            <TextBlock Text="Название животного" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5"/>
+            <ComboBox x:Name="AnimalNameComboBox" IsEditable="True" Width="200" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5"/>
+            <TextBlock Text="Кличка" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5"/>
+            <TextBox x:Name="NickNameTextBox" Width="200" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5"/>
+            <TextBlock Text="Пол" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5"/>
+            <ComboBox x:Name="GenderComboBox" Width="200" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5"/>
+            <TextBlock Text="Дата рождения" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5"/>
+            <Calendar x:Name="BithDayCalendar" Width="200" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5"/>
+            <Button x:Name="SaveAnimalCardButton" Content="Сохранить карточку животного" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="5" Padding="5"/>
+        </StackPanel>
+    </Grid>
+</Window>

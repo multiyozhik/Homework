@@ -2,15 +2,15 @@
 
 namespace _18_Animals.Models
 {
-	class Mammal : IAnimal
+	class Bird: IAnimal
 	{
-		public string AnimalClass => "млекопитающее";
+		public string AnimalClass => "птица";
 		public string Id { get; }
 		public string Name { get; }
 		public string NickName { get; }
 		public string Gender { get; set; }
 		public DateTime? BirthDay { get; }
-		public Mammal(string id, string name, string nickName, string gender, DateTime? birthDay)
+		public Bird(string id, string name, string nickName, string gender, DateTime? birthDay)
 		{
 			Id = id;
 			Name = name;

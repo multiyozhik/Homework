@@ -13,5 +13,8 @@ namespace _19_Notebook.Controllers
         }
 
         public IActionResult Index() => View(HomeModel);
+
+        public IActionResult ContactInfo(Guid id)
+            => View(HomeModel.Contacts.First(contact => contact.Id == id));
     }
 }

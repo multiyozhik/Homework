@@ -19,7 +19,7 @@
         @foreach(var person in Model.Contacts)
         {
             <tr>
-                <td>@person.Id</td>
+                <td><a href="Home/ContactInfo/@person.Id">@person.Id</a></td> @*ссылка на Id*@
                 <td>@person.FamilyName</td>
                 <td>@person.Name</td>
                 <td>@person.MiddleName</td>

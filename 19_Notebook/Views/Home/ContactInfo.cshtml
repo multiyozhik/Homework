@@ -1,0 +1,19 @@
+﻿@using _19_Notebook.Models
+@model Contact
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Информация о контакте</title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <h2>Данные по контакту @Model.Description</h2>
+    <p>Id = @Model.Id</p>
+    <p>Фамилия @Model.FamilyName</p>
+    <p>Имя @Model.Name</p>
+    <p>Отчество @Model.MiddleName</p>
+    <p>Номер телефона @Model.PhoneNumber</p>
+    <p>Адрес @Model.Adress</p>
+</body>
+</html>

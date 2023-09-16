@@ -1,0 +1,31 @@
+﻿@using _20_NotebookDb.Models
+@model HomeModel
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Телефонная книжка</title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <h2>Index страница</h2>
+    <table>
+        <tr>
+            <th>Id</th>
+            <th>Фамилия</th>
+            <th>Имя</th>
+            <th>Отчество</th>
+        </tr>
+        @foreach(var person in Model.Contacts)
+        {
+            <tr>
+                <td><a href="Home/ContactInfo/@person.Id">@person.Id</a></td> @*ссылка на Id*@
+                <td>@person.FamilyName</td>
+                <td>@person.Name</td>
+                <td>@person.MiddleName</td>
+            </tr>
+        }        
+    </table>
+</body>
+</html>
+

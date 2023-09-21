@@ -1,0 +1,26 @@
+﻿@using _20_NotebookDb.Models
+@model Contact
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Создание нового контакта</title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <form method="post" action="/Home/Create">
+        <h2>Введите данные по новому контакту:</h2>
+        <label for="family-name">Фамилия: </label><br/>
+        <input id="family-name" type="text" name="familyName" autofocus required/> <br/>
+        <label for="first-name">Имя:</label><br/>
+        <input id="first-name" type="text" name="name" required/> <br/>
+        <label for="middle-name">Отчество</label><br/>
+        <input id="middle-name" type="text" name="middleName"/> <br/>
+        <label for="phone-number">Телефон</label><br/>
+        <input id="phone-number" type="tel" name="phoneNumber" required/> <br/>
+        <label for="address">Адрес</label><br/>
+        <input id="adress" type="text" name="adress"/> <br/>
+        <button type="submit">Отправить</button>
+    </form>
+</body>
+</html>

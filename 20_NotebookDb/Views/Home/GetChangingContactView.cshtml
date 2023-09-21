@@ -1,0 +1,31 @@
+﻿@using _20_NotebookDb.Models
+@model Contact
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Изменение данных контакта</title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <form method="post" action="/Home/Change?id=@Model.Id">
+        <h2>Уточните данные по контакту:</h2>
+        <label for="family-name">Фамилия: </label><br />
+        <input id="family-name" type="text" name="familyName" autofocus required 
+               value="@Model.FamilyName"/> <br />
+        <label for="first-name">Имя:</label><br />
+        <input id="first-name" type="text" name="name" required 
+               value="@Model.Name"/> <br />
+        <label for="middle-name">Отчество</label><br />
+        <input id="middle-name" type="text" name="middleName"
+               value="@Model.MiddleName"/> <br />
+        <label for="phone-number">Телефон</label><br />
+        <input id="phone-number" type="tel" name="phoneNumber" required
+               value="@Model.PhoneNumber"/> <br />
+        <label for="address">Адрес</label><br />
+        <input id="adress" type="text" name="adress"
+               value="@Model.Adress"/> <br />
+        <button type="submit">Отправить</button>
+    </form>
+</body>
+</html>

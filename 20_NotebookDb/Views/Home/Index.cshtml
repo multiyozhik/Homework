@@ -6,25 +6,45 @@
 <head>
     <title>Телефонная книжка</title>
     <meta charset="utf-8" />
+    <style>
+        th, td {
+            border-bottom: 1px solid #ddd;
+        }
+    </style>
 </head>
 <body>
-    <h2>Index страница</h2>
+    <form  method="get" action="Home/GetCreatingContactView">
+        <input type="submit" value="Создать контакт" />
+    </form>
+    <h2>Список контактов:</h2>
     <table>
         <tr>
             <th>Id</th>
             <th>Фамилия</th>
             <th>Имя</th>
             <th>Отчество</th>
+            <th></th>
+            <th></th>
         </tr>
-        @foreach(var person in Model.Contacts)
+        @foreach (var person in Model.Contacts)
         {
             <tr>
-                <td><a href="Home/ContactInfo/@person.Id">@person.Id</a></td> @*ссылка на Id*@
+                <td><a href="Home/GetContactInfo/@person.Id">@person.Id</a></td>
                 <td>@person.FamilyName</td>
                 <td>@person.Name</td>
                 <td>@person.MiddleName</td>
+                <td>
+                    <form method="get" action="Home/GetChangingContactView/@person.Id">
+                        <input type="submit" value="Изменить" />
+                    </form>
+                </td>
+                <td>
+                    <form method="post" action="Home/DeleteContact/@person.Id">
+                        <input type="submit" value="Удалить"/>
+                    </form>
+                </td>
             </tr>
-        }        
+        }
     </table>
 </body>
 </html>

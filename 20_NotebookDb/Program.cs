@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
 builder.Services
     .AddDbContext<ContactsDbContext>(options => options.UseSqlServer(connectionString))
     .AddTransient<HomeModel>()

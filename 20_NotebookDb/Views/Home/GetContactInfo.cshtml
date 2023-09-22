@@ -1,19 +1,34 @@
-﻿@using _20_NotebookDb.Models
-@model Contact
+﻿@model Contact
+@{
+    ViewBag.Title = "Сведения о контакте";
+}
+ <h2>Сведения о контакте</h2> 
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Информация о контакте</title>
-    <meta charset="utf-8" />
-</head>
-<body>
-    <h2>Данные по контакту @Model.Description</h2>
-    <p>Id = @Model.Id</p>
-    <p>Фамилия @Model.FamilyName</p>
-    <p>Имя @Model.Name</p>
-    <p>Отчество @Model.MiddleName</p>
-    <p>Номер телефона @Model.PhoneNumber</p>
-    <p>Адрес @Model.Adress</p>
-</body>
-</html>
+<table class="table table-light table-hover table-bordered caption-top">
+    <caption>Данные по контакту @Model.Description</caption>
+    <tr>
+        <td>Id</td>
+        <td>@Model.Id</td>
+    </tr>
+    <tr>
+        <td>Фамилия</td>
+        <td>@Model.FamilyName</td>
+    </tr>
+    <tr>
+        <td>Имя</td>
+        <td>@Model.Name</td>
+    </tr>
+    <tr>
+        <td>Отчество</td>
+        <td>@Model.MiddleName</td>
+    </tr>
+    <tr>
+        <td>Номер телефона</td>
+        <td>@Model.PhoneNumber</td>
+    </tr>
+    <tr>
+        <td>Адрес</td>
+        <td>@Model.Adress</td>
+    </tr>
+</table>
+

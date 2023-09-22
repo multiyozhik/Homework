@@ -1,0 +1,17 @@
+﻿@import url(StyleSheet.css);
+
+body {
+    background-color: blue;
+    font-size: 24px;
+}
+h2{
+    color:red;
+}
+
+th, td {
+    border-bottom: 1px solid #ddd;
+}
+
+.selector-for-some-widget {
+    box-sizing: content-box;
+}

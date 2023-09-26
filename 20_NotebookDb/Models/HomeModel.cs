@@ -15,8 +15,7 @@ namespace _20_NotebookDb.Models
         public void Change(Contact newDataofChangingContact)
         {           
             Context.Contacts.Update(newDataofChangingContact);    
-            Context.SaveChanges();                    
-            //Contacts = Context.Contacts.ToList();     // !не забываем обновить визуальную часть, тянем список из бд
+            Context.SaveChanges();
         }
 
         public void Delete(Guid id)
@@ -25,7 +24,6 @@ namespace _20_NotebookDb.Models
             if (deletingContact is null) return;
             Context.Contacts.Remove(deletingContact);
             Context.SaveChanges();
-            //Contacts = Context.Contacts.ToList();
         }
     }
 }

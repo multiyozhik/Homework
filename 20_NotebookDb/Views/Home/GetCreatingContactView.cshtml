@@ -1,28 +1,34 @@
 ﻿@model Contact
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
 @{
     ViewBag.Title = "Создание нового контакта";
 }
 <h4>Введите данные по новому контакту:</h4>
 <form method="post" action="/Home/Create" class="role">
     <div class="form-group">
-        <label for="family-name">Фамилия: </label>
-        <input class="form-control" id="family-name" type="text" name="familyName" autofocus required />
+        <label asp-for="FamilyName">Фамилия: </label>
+        <input asp-for="FamilyName" class="form-control" type="text" autofocus required />
+        <span asp-validation-for="FamilyName" class="text-danger field-validation-valid" />
     </div>
     <div class="form-group">
-        <label for="first-name">Имя:</label>
-        <input class="form-control" id="first-name" type="text" name="name" required />
+        <label asp-for="Name">Имя:</label>
+        <input asp-for="Name" class="form-control" type="text" required />
+        <span asp-validation-for="Name"/>
     </div>
     <div class="form-group">
         <label for="middle-name">Отчество</label>
-        <input class="form-control" id="middle-name" type="text" name="middleName" />
+        <input class="form-control" id="middle-name" type="text" name="middleName" />        
     </div>
     <div class="form-group">
-        <label for="phone-number">Телефон: </label>
-        <input class="form-control" id="phone-number" type="text" name="phoneNumber" required />
+        <label asp-for="PhoneNumber">Телефон: </label>
+        <input asp-for="PhoneNumber" class="form-control" type="text" required />
+        <span asp-validation-for="PhoneNumber"/>
     </div>
     <div class="form-group">
-        <label for="address">Адрес:</label>
-        <input class="form-control" id="adress" type="text" name="adress" required />
+        <label asp-for="Adress">Адрес:</label>
+        <input asp-for="Adress" class="form-control" type="text" />
+        <span asp-validation-for="Adress"/>
     </div>    
     <div>
         <button type="submit" class="btn btn-primary">Отправить</button>

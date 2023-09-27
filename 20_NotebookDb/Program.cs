@@ -17,4 +17,4 @@ app.MapControllerRoute(name: "default", pattern: "{controller=Home}/{action=Inde
 
 app.UseStaticFiles(); //чтобы видел wwwroot папку
 
-app.Run();
+await app.RunAsync();

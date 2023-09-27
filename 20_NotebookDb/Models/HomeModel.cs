@@ -1,29 +1,38 @@
-﻿using System.Diagnostics.Contracts;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Diagnostics.Contracts;
+using System.Reflection.Metadata;
 
 namespace _20_NotebookDb.Models
 {
     public record HomeModel(ContactsDbContext Context)
     {
-        public IReadOnlyCollection<Contact> Contacts = Context.Contacts.ToList<Contact>();        
+        public IReadOnlyCollection<Contact> Contacts = new List<Contact> { };
 
-        public void Add(Contact contact)
-        { 
+        public async Task UpdateContactsAsync() => 
+            Contacts = await Context.Contacts.ToListAsync();
+
+        public async Task<Contact> GetContactByIdAsync(Guid id) =>
+            await Context.Contacts.FirstAsync(contact => contact.Id == id);
+
+        public async Task AddAsync(Contact contact)
+        {
             Context.Contacts.Add(contact);
-            Context.SaveChanges();
+            await Context.SaveChangesAsync();
         }
 
-        public void Change(Contact newDataofChangingContact)
-        {           
-            Context.Contacts.Update(newDataofChangingContact);    
-            Context.SaveChanges();
+        public async Task ChangeAsync(Contact newDataofChangingContact)
+        {
+            Context.Contacts.Update(newDataofChangingContact);
+            await Context.SaveChangesAsync();
         }
 
-        public void Delete(Guid id)
+        public async Task DeleteAsync(Guid id)
         {
             var deletingContact = Context.Contacts.FirstOrDefault((contact) => contact.Id == id);
             if (deletingContact is null) return;
             Context.Contacts.Remove(deletingContact);
-            Context.SaveChanges();
+            await Context.SaveChangesAsync();
         }
+
     }
 }

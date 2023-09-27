@@ -1,17 +1,11 @@
 ﻿@import url(StyleSheet.css);
 
 body {
-    background-color: blue;
-    font-size: 24px;
-}
-h2{
-    color:red;
+    margin: 0;
 }
 
-th, td {
-    border-bottom: 1px solid #ddd;
-}
-
-.selector-for-some-widget {
-    box-sizing: content-box;
-}
+.parent {
+    margin: 20px; /* Отступы вокруг элемента */
+    background: #e2edc1;
+    padding: 10px; /* Поля вокруг текста */
+}   

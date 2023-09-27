@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace _20_NotebookDb.Controllers
 {
@@ -17,21 +18,25 @@ namespace _20_NotebookDb.Controllers
         }
 
         [HttpGet] //передача в главную страницу модели для отображения ее с-ва Contacts
-        public IActionResult Index() => View(HomeModel);
+        public async Task<IActionResult> Index()
+        {
+            await HomeModel.UpdateContactsAsync();
+            return View(HomeModel);
+        }
 
         [HttpGet] //передача id чз строку запроса Home/GetContactInfo/@person.Id
-        public IActionResult GetContactInfo(Guid id)
-            => View(HomeModel.Contacts.First(contact => contact.Id == id));
+        public async Task<IActionResult> GetContactInfo(Guid id)
+            => View(await HomeModel.GetContactByIdAsync(id));
 
         [HttpGet]
         public IActionResult GetCreatingContactView() => View();
 
         [HttpPost] //передача объекта типа Contact чз форму
-        public IActionResult Create(Contact contact)
+        public async Task<IActionResult> Create(Contact contact)
         {
             if (IsValid(contact, out string errorMessage))
             {
-                HomeModel.Add(contact);
+                await HomeModel.AddAsync(contact);
                 return RedirectToAction("index");
             }
             else
@@ -41,19 +46,19 @@ namespace _20_NotebookDb.Controllers
         }
 
         [HttpGet] //передача id чз строку запроса Home/GetChangingContactView/@person.Id
-        public IActionResult GetChangingContactView(Guid id)
-            => View(HomeModel.Contacts.First(contact => contact.Id == id));
+        public async Task<IActionResult> GetChangingContactView(Guid id)
+            => View(await HomeModel.GetContactByIdAsync(id));
 
         //передача id из запроса и передача объекта типа Contact чз форму
         //здесь нужно обязательно вытаскивать id и передавать из запроса вручную в изменяемый контакт,
         //т.к. если параметром прокидывать только контакт, то Guid id нулевой и
         //соответственно дальше в HomeModel.Change не находит контакт с id 
         [HttpPost]
-        public IActionResult Change([FromQuery] Guid id, [FromForm] Contact newDataofChangingContact)
+        public async Task<IActionResult> Change([FromQuery] Guid id, [FromForm] Contact newDataofChangingContact)
         {
             if (IsValid(newDataofChangingContact, out string errorMessage))
-                {
-                HomeModel.Change(newDataofChangingContact with { Id = id });
+            {
+                await HomeModel.ChangeAsync(newDataofChangingContact with { Id = id });
                 return RedirectToAction("Index");
             }
             else
@@ -63,9 +68,9 @@ namespace _20_NotebookDb.Controllers
         }
 
         [HttpPost] //передача id чз строку запроса Home/DeleteContact/@person.Id
-        public IActionResult DeleteContact(Guid id)
+        public async Task<IActionResult> DeleteContact(Guid id)
         {
-            HomeModel.Delete(id);
+            await HomeModel.DeleteAsync(id);
             return RedirectToAction("Index");
         }
 

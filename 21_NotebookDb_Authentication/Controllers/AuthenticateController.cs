@@ -25,7 +25,7 @@ namespace _21_NotebookDb.Controllers
         }
 
         [HttpPost]
-        [Route("login")]
+        [Route("login")] //войти для пользователя
         public async Task<IActionResult> Login([FromBody] LoginModel model)
         {
             var user = await userManager.FindByNameAsync(model.Username);
@@ -64,7 +64,7 @@ namespace _21_NotebookDb.Controllers
         }
 
         [HttpPost]
-        [Route("register")]
+        [Route("register")] //регистрация нового пользователя
         public async Task<IActionResult> Register([FromBody] RegisterModel model)
         {
             var userExists = await userManager.FindByNameAsync(model.UserName);
@@ -94,52 +94,49 @@ namespace _21_NotebookDb.Controllers
                 Message = "User created successfully!" });
         }
 
-        [HttpPost]
-        [Route("register-admin")]
-        public async Task<IActionResult> RegisterAdmin([FromBody] RegisterModel model)
-        {
-            var userExists = await userManager.FindByNameAsync(model.UserName);
-            if (userExists != null)
-                return StatusCode(
-                    StatusCodes.Status500InternalServerError, 
-                    new ResponseAfterRegistration { 
-                        Status = "Error", 
-                        Message = "User already exists!" });
+        //контроллер для тестирования работы авторизации для роли админа
 
-            ApplicationUser user = new ApplicationUser()
-            {
-                Email = model.Email,
-                SecurityStamp = Guid.NewGuid().ToString(),
-                UserName = model.UserName
-            };
-            var result = await userManager.CreateAsync(user, model.Password);
-            if (!result.Succeeded)
-                return StatusCode(
-                    StatusCodes.Status500InternalServerError, 
-                    new ResponseAfterRegistration { 
-                        Status = "Error", 
-                        Message = "User creation failed! Please check user details and try again." });
+        //[HttpPost]
+        //[Route("register-admin")]
+        //public async Task<IActionResult> RegisterAdmin([FromBody] RegisterModel model)
+        //{
+        //    var userExists = await userManager.FindByNameAsync(model.UserName);
+        //    if (userExists != null)
+        //        return StatusCode(
+        //            StatusCodes.Status500InternalServerError, 
+        //            new ResponseAfterRegistration { 
+        //                Status = "Error", 
+        //                Message = "User already exists!" });
 
-            if (!await roleManager.RoleExistsAsync(UserRoles.Admin))
-                await roleManager.CreateAsync(new IdentityRole(UserRoles.Admin));
-            if (!await roleManager.RoleExistsAsync(UserRoles.Authorized))
-                await roleManager.CreateAsync(new IdentityRole(UserRoles.Authorized));
-            if (!await roleManager.RoleExistsAsync(UserRoles.Anonim))
-                await roleManager.CreateAsync(new IdentityRole(UserRoles.Anonim));
+        //    ApplicationUser user = new ApplicationUser()
+        //    {
+        //        Email = model.Email,
+        //        SecurityStamp = Guid.NewGuid().ToString(),
+        //        UserName = model.UserName
+        //    };
+        //    var result = await userManager.CreateAsync(user, model.Password);
+        //    if (!result.Succeeded)
+        //        return StatusCode(
+        //            StatusCodes.Status500InternalServerError, 
+        //            new ResponseAfterRegistration { 
+        //                Status = "Error", 
+        //                Message = "User creation failed! Please check user details and try again." });
 
-            if (await roleManager.RoleExistsAsync(UserRoles.Admin))
-            {
-                await userManager.AddToRoleAsync(user, UserRoles.Admin);
-            }
-            if (await roleManager.RoleExistsAsync(UserRoles.Authorized))
-            {
-                await userManager.AddToRoleAsync(user, UserRoles.Authorized);
-            }
+        //    if (!await roleManager.RoleExistsAsync(UserRoles.Admin))
+        //        await roleManager.CreateAsync(new IdentityRole(UserRoles.Admin));
+        //    if (!await roleManager.RoleExistsAsync(UserRoles.Authorized))
+        //        await roleManager.CreateAsync(new IdentityRole(UserRoles.Authorized));
+        //    if (!await roleManager.RoleExistsAsync(UserRoles.Anonim))
+        //        await roleManager.CreateAsync(new IdentityRole(UserRoles.Anonim));
 
+        //    if (await roleManager.RoleExistsAsync(UserRoles.Admin))
+        //    {
+        //        await userManager.AddToRoleAsync(user, UserRoles.Admin);
+        //    }
 
-            return Ok(new ResponseAfterRegistration { 
-                Status = "Success", 
-                Message = "User created successfully!" });
-        }
+        //    return Ok(new ResponseAfterRegistration { 
+        //        Status = "Success", 
+        //        Message = "User created successfully!" });
+        //}
     }
 }

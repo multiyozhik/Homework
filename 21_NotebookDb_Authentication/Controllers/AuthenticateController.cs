@@ -10,7 +10,7 @@ using System.Text;
 
 namespace _21_NotebookDb.Controllers
 {
-    
+    //класс-контроллер аутентификации с методами Register и Login (на вход [FromBody] данные формы)
     public class AuthenticateController: ControllerBase
     {
         private readonly UserManager<ApplicationUser> userManager;
@@ -25,7 +25,7 @@ namespace _21_NotebookDb.Controllers
         }
 
         [HttpPost]
-        [Route("login")] //войти для пользователя
+        [Route("login")] 
         public async Task<IActionResult> Login([FromBody] LoginModel model)
         {
             var user = await userManager.FindByNameAsync(model.Username);
@@ -64,7 +64,7 @@ namespace _21_NotebookDb.Controllers
         }
 
         [HttpPost]
-        [Route("register")] //регистрация нового пользователя
+        [Route("register")] 
         public async Task<IActionResult> Register([FromBody] RegisterModel model)
         {
             var userExists = await userManager.FindByNameAsync(model.UserName);

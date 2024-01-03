@@ -1,0 +1,33 @@
+﻿@model LoginModel
+@{
+    ViewData["Title"] = "Login";
+}
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<h1>Вход в систему</h1>
+
+<a asp-controller="Auth" asp-action="Register">Регистрация</a>
+<a asp-controller="Home" asp-action="Index">Home</a>
+
+<form asp-controller="Auth" asp-action="Login" method="post">
+    <input hidden asp-for="ReturnUrl"/>
+    
+    <div class="container">
+        <div class="col-xs-12">
+            <label>UserName</label>
+            <input asp-for="LoginProp"/>
+            <span asp-validation-for="LoginProp" />
+        </div>
+        
+        <div class="col-xs-12">
+            <label>Password</label>
+            <input asp-for="Password"/>
+            <span asp-validation-for="Password"/>
+        </div>
+
+        <div class="col-xs-12">
+            <button type="submit">Log In</button>
+        </div>
+    </div>
+
+</form>

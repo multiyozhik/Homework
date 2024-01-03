@@ -46,7 +46,7 @@ builder.Services.AddAuthentication(options =>
      });
 builder.Services.AddAuthorization();
 builder.Services.AddTransient<HomeModel>().AddControllersWithViews();
-//builder.Services.AddRazorPages();
+builder.Services.AddRazorPages();
 
 var app = builder.Build();
 

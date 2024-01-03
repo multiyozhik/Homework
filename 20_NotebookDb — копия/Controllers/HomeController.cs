@@ -1,4 +1,5 @@
 ﻿using _21_AuthNotebookDb.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +10,8 @@ namespace _21_AuthNotebookDb.Controllers
 {
     //в HomeController в конструктор подкладываем HomeModel и
     //следим за соответствием названий методов контроллера и названий View соотв. папки контроллера
+
+    [Authorize]
     public class HomeController : Controller
     {
         HomeModel HomeModel { get; }

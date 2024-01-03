@@ -1,6 +1,5 @@
 ﻿
 using _21_NotebookDb.Models;
-using Azure;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -11,7 +10,8 @@ using System.Text;
 namespace _21_NotebookDb.Controllers
 {
     //класс-контроллер аутентификации с методами Register и Login (на вход [FromBody] данные формы)
-    public class AuthenticateController: ControllerBase
+    [Route("[controller]/[action]")]
+    public class AuthenticateController: Controller
     {
         private readonly UserManager<ApplicationUser> userManager;
         private readonly RoleManager<IdentityRole> roleManager;
@@ -24,8 +24,19 @@ namespace _21_NotebookDb.Controllers
             _configuration = configuration;
         }
 
+        [HttpGet]
+     
+        public IActionResult Login(string returnUrl)
+        {            
+            return View(new LoginModel()
+            { 
+                ReturnUrl = returnUrl
+            });
+        }
+
+        
+
         [HttpPost]
-        [Route("login")] 
         public async Task<IActionResult> Login([FromBody] LoginModel model)
         {
             var user = await userManager.FindByNameAsync(model.Username);
@@ -63,8 +74,13 @@ namespace _21_NotebookDb.Controllers
             return Unauthorized();
         }
 
-        [HttpPost]
-        [Route("register")] 
+        [HttpGet]    
+        public IActionResult Register()
+        {
+            return View(new RegisterModel());
+        }
+
+        [HttpPost]        
         public async Task<IActionResult> Register([FromBody] RegisterModel model)
         {
             var userExists = await userManager.FindByNameAsync(model.UserName);
@@ -77,7 +93,7 @@ namespace _21_NotebookDb.Controllers
 
             ApplicationUser user = new ApplicationUser()
             {
-                Email = model.Email,
+                PasswordHash = model.Password,
                 SecurityStamp = Guid.NewGuid().ToString(),
                 UserName = model.UserName
             };

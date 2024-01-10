@@ -34,12 +34,12 @@
         @foreach (var person in Model.Contacts)
         {
             <tr>
-            <td><a href="Home/GetContactInfo/@person.Id">@person.Id</a></td>
+            <td><a href="GetContactInfo/@person.Id">@person.Id</a></td>
             <td>@person.FamilyName</td>
             <td>@person.Name</td>
             <td>@person.MiddleName</td>
             <td>
-                <form method="get" action="Home/GetChangingContactView/@person.Id">
+                <form method="get" action="GetChangingContactView/@person.Id">
                     <input type="submit" value="Изменить" class="btn btn-primary" />
                 </form>
             </td>

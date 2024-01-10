@@ -11,9 +11,7 @@ namespace _21_NotebookDb.Controllers
 {
     //в HomeController в конструктор подкладываем HomeModel и
     //следим за соответствием названий методов контроллера и названий View соотв. папки контроллера
-    
-    [ApiController]
-    [Route("[controller]/[action]")]
+    [Authorize]
     public class HomeController : Controller
     {
         HomeModel HomeModel { get; }
@@ -21,25 +19,26 @@ namespace _21_NotebookDb.Controllers
         {
             HomeModel = homeModel;
         }
-        [Authorize(Roles = UserRoles.Admin + "," + UserRoles.Authorized + "," + UserRoles.Anonim)]
-        [HttpGet("")] //передача в главную страницу модели для отображения ее с-ва Contacts
+       
+        [HttpGet] //передача в главную страницу модели для отображения ее с-ва Contacts
         public async Task<IActionResult> Index()
         {
             await HomeModel.UpdateContactsAsync();
             return View(HomeModel);
         }
 
-        [Authorize(Roles = UserRoles.Admin + "," + UserRoles.Authorized + "," + UserRoles.Anonim)]
-        [HttpGet("{id}")] //передача id чз строку запроса Home/GetContactInfo/@person.Id
+        
+        [HttpGet] //передача id чз строку запроса Home/GetContactInfo/@person.Id        
         public async Task<IActionResult> GetContactInfo(Guid id)
             => View(await HomeModel.GetContactByIdAsync(id));
 
-        [Authorize(Roles = UserRoles.Admin + "," + UserRoles.Authorized)]
+        
         [HttpGet]
         public IActionResult GetCreatingContactView() => View();
 
-        [Authorize(Roles = UserRoles.Admin +","+ UserRoles.Authorized)]
+        
         [HttpPost] //передача объекта типа Contact чз форму
+        
         public async Task<IActionResult> Create(Contact contact)
         {
             if (IsValid(contact, out string errorMessage))
@@ -53,8 +52,8 @@ namespace _21_NotebookDb.Controllers
             }
         }
 
-        [Authorize(Roles = UserRoles.Admin)]
-        [HttpGet] //передача id чз строку запроса Home/GetChangingContactView/@person.Id
+        
+        [HttpGet] //передача id чз строку запроса Home/GetChangingContactView/@person.Id        
         public async Task<IActionResult> GetChangingContactView(Guid id)
             => View(await HomeModel.GetContactByIdAsync(id));
 
@@ -63,8 +62,8 @@ namespace _21_NotebookDb.Controllers
         //т.к. если параметром прокидывать только контакт, то Guid id нулевой и
         //соответственно дальше в HomeModel.Change не находит контакт с id 
 
-        [Authorize(Roles = UserRoles.Admin)]
-        [HttpPost]
+        
+        [HttpPost]       
         public async Task<IActionResult> Change([FromQuery] Guid id, [FromForm] Contact newDataofChangingContact)
         {
             if (IsValid(newDataofChangingContact, out string errorMessage))
@@ -78,7 +77,6 @@ namespace _21_NotebookDb.Controllers
             }
         }
 
-        [Authorize(Roles = UserRoles.Admin)]
         [HttpPost] //передача id чз строку запроса Home/DeleteContact/@person.Id
         public async Task<IActionResult> DeleteContact(Guid id)
         {

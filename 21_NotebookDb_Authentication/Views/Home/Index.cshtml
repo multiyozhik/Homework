@@ -3,6 +3,17 @@
     ViewBag.Title = "Телефонная книжка";
 }
 
+
+<div>    
+    <form method="post" asp-controller="Authenticate" asp-action="Logout">
+        <input type="submit" value="Logout" />
+    </form>
+    
+    <a asp-controller="Authenticate" asp-action="Login">Login</a>
+    <a asp-controller="Authenticate" asp-action="Register">Register</a>    
+
+</div>
+
 <form method="get" action="Home/GetCreatingContactView" class="role">
     <input type="submit" value="Создать контакт" class="btn btn-primary" />
 </form>

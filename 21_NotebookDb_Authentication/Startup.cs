@@ -15,19 +15,16 @@ namespace _21_NotebookDb
 
         public void ConfigureServices(IServiceCollection services)
         {
-            //System.InvalidOperationException: "Endpoint Routing does not support
-            //'IApplicationBuilder.UseMvc(...)'. To use 'IApplicationBuilder.UseMvc'
-            //set 'MvcOptions.EnableEndpointRouting = false' inside 'ConfigureServices(...)."
-
             services.AddDbContext<ContactsDbContext>(options => options.UseSqlServer(
                 Configuration.GetConnectionString("ContactsConString")));
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(
                 Configuration.GetConnectionString("AppConString")));
             services.AddTransient<HomeModel>();
 
+            //System.InvalidOperationException: "Endpoint Routing does not support
+            //'IApplicationBuilder.UseMvc(...)'. To use 'IApplicationBuilder.UseMvc'
+            //set 'MvcOptions.EnableEndpointRouting = false' inside 'ConfigureServices(...)."
             services.AddMvc(options => options.EnableEndpointRouting = false);
-
-            #region //
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -52,10 +49,19 @@ namespace _21_NotebookDb
                 options.SlidingExpiration = true;
             });
 
-            #endregion
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy(
+                    "OnlyForAdminRole", 
+                    policy => policy.RequireRole("Admin"));
+            });
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(
+            IApplicationBuilder app, 
+            IWebHostEnvironment env, 
+            UserManager<ApplicationUser> userManager, 
+            RoleManager<IdentityRole> roleManager)
         {
             app.UseStaticFiles();
 
@@ -65,9 +71,20 @@ namespace _21_NotebookDb
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
-                    //template: "{action=Index}/{id?}");
-        });
+                    template: "{controller=Home}/{action=Index}/{id?}");                    
+            });
+
+            ConfigureRoles(userManager, roleManager);
+        }
+
+        public void ConfigureRoles(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
+        {
+            if (!roleManager.RoleExistsAsync("Admin").Result)
+            {
+                IdentityRole role = new IdentityRole();
+                role.Name = "Admin";
+                IdentityResult roleResult = roleManager.CreateAsync(role).Result;
+            }
         }
     }
 }

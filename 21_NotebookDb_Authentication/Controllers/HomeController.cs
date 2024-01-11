@@ -37,8 +37,7 @@ namespace _21_NotebookDb.Controllers
         public IActionResult GetCreatingContactView() => View();
 
         
-        [HttpPost] //передача объекта типа Contact чз форму
-        
+        [HttpPost] //передача объекта типа Contact чз форму        
         public async Task<IActionResult> Create(Contact contact)
         {
             if (IsValid(contact, out string errorMessage))
@@ -52,7 +51,7 @@ namespace _21_NotebookDb.Controllers
             }
         }
 
-        
+        [Authorize(Policy = "OnlyForAdminRole")]
         [HttpGet] //передача id чз строку запроса Home/GetChangingContactView/@person.Id        
         public async Task<IActionResult> GetChangingContactView(Guid id)
             => View(await HomeModel.GetContactByIdAsync(id));
@@ -62,7 +61,7 @@ namespace _21_NotebookDb.Controllers
         //т.к. если параметром прокидывать только контакт, то Guid id нулевой и
         //соответственно дальше в HomeModel.Change не находит контакт с id 
 
-        
+        [Authorize(Policy = "OnlyForAdminRole")]
         [HttpPost]       
         public async Task<IActionResult> Change([FromQuery] Guid id, [FromForm] Contact newDataofChangingContact)
         {
@@ -77,6 +76,7 @@ namespace _21_NotebookDb.Controllers
             }
         }
 
+        [Authorize(Policy = "OnlyForAdminRole")]
         [HttpPost] //передача id чз строку запроса Home/DeleteContact/@person.Id
         public async Task<IActionResult> DeleteContact(Guid id)
         {

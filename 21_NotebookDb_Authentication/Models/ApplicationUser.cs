@@ -5,7 +5,5 @@ namespace _21_NotebookDb.Models
     public class ApplicationUser: IdentityUser
     {
         
-    }
-
-   
+    }   
 }

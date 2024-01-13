@@ -18,8 +18,9 @@ namespace _21_NotebookDb.Controllers
         public HomeController(HomeModel homeModel)
         {
             HomeModel = homeModel;
-        }
-       
+        }        
+
+        [AllowAnonymous]
         [HttpGet] //передача в главную страницу модели для отображения ее с-ва Contacts
         public async Task<IActionResult> Index()
         {

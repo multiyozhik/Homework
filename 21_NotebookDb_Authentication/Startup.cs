@@ -20,6 +20,7 @@ namespace _21_NotebookDb
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(
                 Configuration.GetConnectionString("AppConString")));
             services.AddTransient<HomeModel>();
+            services.AddTransient<UsersModel>();
 
             //System.InvalidOperationException: "Endpoint Routing does not support
             //'IApplicationBuilder.UseMvc(...)'. To use 'IApplicationBuilder.UseMvc'

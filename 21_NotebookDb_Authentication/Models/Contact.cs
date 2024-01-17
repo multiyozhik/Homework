@@ -26,7 +26,7 @@ namespace _21_NotebookDb.Models
         string PhoneNumber,
 
         [StringLength(100, MinimumLength = 15,
-        ErrorMessage = "Длина строки должна быть от 15 до 100 символов")]
+        ErrorMessage = "Длина строки должна быть от 10 символов")]
         string? Adress)
     {
         public string Description => $"{FamilyName}: {PhoneNumber}";

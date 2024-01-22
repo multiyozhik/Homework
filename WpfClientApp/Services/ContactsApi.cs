@@ -15,60 +15,58 @@ namespace WpfClientApp.Services
 {
     public class ContactsApi
     {
-        private readonly HttpClient httpClient;        
+        private readonly HttpClient httpClient;
+        private static Uri baseAddress;
 
         public ContactsApi(Uri baseRoute) 
         {
-            httpClient = new HttpClient() { BaseAddress = baseRoute };
+            httpClient = new HttpClient();
+            baseAddress = baseRoute;
         }
 
-        public async Task<IEnumerable<Contact>?> GetContacts()
+        public async Task<List<Contact>?> GetContacts()
         {
-            var uri = new Uri(httpClient.BaseAddress, "/api/contacts");
+            var uri = new Uri(baseAddress, "/api/contacts");
             var httpResponseMsg = await httpClient.GetAsync(uri);
-            return await httpResponseMsg.Content.ReadFromJsonAsync<IEnumerable<Contact>?>();            
+            return await httpResponseMsg.Content.ReadFromJsonAsync<List<Contact>?>();            
         }
 
         public async Task<Contact?> GetContactsById(Guid id)
         {
-            var uri = new Uri(httpClient.BaseAddress, "/api/contacts/id");
+            var uri = new Uri(baseAddress, "/api/contacts/id");
             var httpResponseMsg = await httpClient.GetAsync(uri);
             return await httpResponseMsg.Content.ReadFromJsonAsync<Contact?>();
         }
 
         public async Task AddContact(Contact contact)
         {
-            var uri = new Uri(httpClient.BaseAddress, $"/api/add/{contact.Id}");
-            var httpResponseMsg = await httpClient.PostAsync(
-                requestUri: uri,
-                content: new StringContent(JsonSerializer.Serialize(contact)));
-            if (!httpResponseMsg.IsSuccessStatusCode)
-                await ThrowException(httpResponseMsg);
+            var uri = new Uri(baseAddress, "/api/add");
+
+            // !!!обязательно надо указывать кодировку и тип контента, иначе 415 ошибка
+
+            await httpClient.PostAsync(
+                requestUri: uri,               
+                content: new StringContent(
+                    JsonSerializer.Serialize(contact), 
+                    Encoding.UTF8, 
+                    "application/json"));
         }
 
         public async Task ChangeContact(Contact contact)
         {
-            var uri = new Uri(httpClient.BaseAddress, $"/api/change/{contact.Id}");
-            var httpResponseMsg = await httpClient.PutAsync(
+            var uri = new Uri(baseAddress, "/api/change");
+            await httpClient.PutAsync(
                 requestUri: uri,
-                content: new StringContent(JsonSerializer.Serialize(contact)));
-            if (!httpResponseMsg.IsSuccessStatusCode)
-                await ThrowException(httpResponseMsg);
+                content: new StringContent(
+                    JsonSerializer.Serialize(contact),
+                    Encoding.UTF8,
+                    "application/json"));         
         }
 
         public async Task DeleteContact(Guid id)
         {
-            var uri = new Uri(httpClient.BaseAddress, $"/api/delete/{id}");
-            var httpResponseMsg = await httpClient.DeleteAsync(uri);
-            if (!httpResponseMsg.IsSuccessStatusCode)
-                await ThrowException(httpResponseMsg);
-        }
-
-        private async Task ThrowException(HttpResponseMessage httpResponseMsg)
-        {
-            string msg = await httpResponseMsg.Content.ReadAsStringAsync();
-            Console.WriteLine(msg);
-            throw new Exception(msg);
-        }
+            var uri = new Uri(baseAddress, $"/api/delete/{id}");
+            await httpClient.DeleteAsync(uri);           
+        }        
     }
 }

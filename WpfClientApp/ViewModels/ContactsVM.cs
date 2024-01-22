@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Threading.Tasks;
+using System.Windows.Navigation;
 using WpfClientApp.Models;
 using WpfClientApp.Services;
 using WpfClientApp.Views;
@@ -39,22 +41,14 @@ namespace WpfClientApp.ViewModels
         public ContactsVM(ContactsApi contactsApiService) // конструктор
         {
             contactsApi = contactsApiService;
-            ContactsList = contactsApi.GetContacts().Result?.ToList(); //УБРАТЬ ИЗ КОНСТРУКТОРА!!!
-            //!!!ВСЕ ВИСИТ - ЕСЛИ Я ТАК ДЕЛАЮ, Т.К. ТУТ СИНХРОННО, А В API АСИНХРОННО И БЛОКИРОВКА
-            //СДЕЛАТЬ ДЛЯ ОКНА ONLOAD И ТАМ CONTACTSLIST И ПОСМОТРЕТЬ АСИНХРОНЩИНУ ДЛЯ RELAYCOMMAND
-        
-            
-        
-        
         }
-
         
         public Contact? AddedContact { get; set; }
 
-        private readonly RelayCommand? addContactCommand;
-        public RelayCommand AddContactCommand                //добавить новый контакт
+        private readonly AsyncRelayCommand? addContactCommand;
+        public AsyncRelayCommand AddContactCommand                //добавить новый контакт
         {
-            get => addContactCommand ?? new RelayCommand(obj =>  
+            get => addContactCommand ?? new AsyncRelayCommand(async obj => 
             {
 
                 AddedContact = new Contact();
@@ -67,15 +61,15 @@ namespace WpfClientApp.ViewModels
                 var contactDataWindowResult = contactDataWindow.ShowDialog();
                 if (contactDataWindowResult is false) return;
 
-                contactsApi.AddContact(AddedContact);
-                ContactsList = contactsApi.GetContacts().Result?.ToList();                               
+                await contactsApi.AddContact(AddedContact);
+                ContactsList = await contactsApi.GetContacts(); //обновляем => event PropertyChanged  
             });
         }
 
-        private readonly RelayCommand? changeContactCommand;
-        public RelayCommand ChangeContactCommand            
+        private readonly AsyncRelayCommand? changeContactCommand;
+        public AsyncRelayCommand ChangeContactCommand            
         {
-            get => changeContactCommand ?? new RelayCommand(obj =>
+            get => changeContactCommand ?? new AsyncRelayCommand(async obj =>
             {
                 var contactDataWindow = new ContactDataWindow()
                 {
@@ -84,20 +78,20 @@ namespace WpfClientApp.ViewModels
                 var contactDataWindowResult = contactDataWindow.ShowDialog();
                 if (contactDataWindowResult is false) return;
 
-                contactsApi.ChangeContact(SelectedContact);
-                ContactsList = contactsApi.GetContacts().Result?.ToList();
+                await contactsApi.ChangeContact(SelectedContact);
+                ContactsList = await contactsApi.GetContacts();
             });
         }
         
-        private RelayCommand deleteContact;
-        public RelayCommand DeleteContact                
+        private AsyncRelayCommand deleteContact;
+        public AsyncRelayCommand DeleteContact                
         {
-            get => deleteContact ?? new RelayCommand(obj =>
+            get => deleteContact ?? new AsyncRelayCommand(async obj =>
             {
                 if (SelectedContact is null) return;
 
-                contactsApi.DeleteContact(SelectedContact.Id);
-                ContactsList = contactsApi.GetContacts().Result?.ToList();               
+                await contactsApi.DeleteContact(SelectedContact.Id);
+                ContactsList = await contactsApi.GetContacts();
             });
         }
     }

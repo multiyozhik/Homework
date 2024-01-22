@@ -29,7 +29,7 @@ namespace _21_NotebookDb.Controllers
             return HomeModel.Contacts;
         }
 
-        [Route("api/contacts/id")]
+        [Route("api/contacts/{id}")]
         [AllowAnonymous]
         [HttpGet] //возвращает Contact по id
         public async Task<Contact> GetContactsById(Guid id)
@@ -45,15 +45,15 @@ namespace _21_NotebookDb.Controllers
             await HomeModel.AddAsync(contact);
         }
 
-        [Route("api/change/id")]
+        [Route("api/change")]
         [AllowAnonymous]
         [HttpPut] //изменяет выделенный Contact
-        public async Task ChangeContact(Guid id, [FromBody] Contact contact)
+        public async Task ChangeContact([FromBody] Contact contact)
         {
             await HomeModel.ChangeAsync(contact);
         }
 
-        [Route("api/delete/id")]
+        [Route("api/delete/{id}")]
         [AllowAnonymous]
         [HttpDelete] //удаляет выделенный Contact
         public async Task Delete(Guid id)

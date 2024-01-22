@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace WpfClientApp.ViewModels
 {
     //в конструктор RelayCommand будем передавать лямбда-выражением действия команды,
     //второй параметр необязательный - делаем по умолчанию кнопку активной
-    public class RelayCommand: ICommand
+    public class AsyncRelayCommand: ICommand
     {        
-        private Action<object> execute;
-        private Func<object, bool> canExecute;
+        private readonly Func<object, Task> execute;
+        private readonly Func<object, bool> canExecute;
 
-        public RelayCommand(Action<object> execute, Func<object, bool> canExecute = null)
+        public AsyncRelayCommand(Func<object, Task> execute, Func<object, bool> canExecute = null)
         {
             this.execute = execute;
             this.canExecute = canExecute;
@@ -25,9 +26,9 @@ namespace WpfClientApp.ViewModels
             return canExecute == null || CanExecute(parameter);
         }
 
-        public void Execute(object? parameter)
+        public async void Execute(object? parameter)
         {
-            execute(parameter);
+            await execute(parameter);
         }
     }
 }

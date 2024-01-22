@@ -18,7 +18,49 @@ namespace _21_NotebookDb.Controllers
         public HomeController(HomeModel homeModel)
         {
             HomeModel = homeModel;
-        }        
+        }
+
+        [Route("api/contacts")]
+        [AllowAnonymous]
+        [HttpGet] //возвращает коллекцию Contacts
+        public async Task<IEnumerable<Contact>> GetContacts()
+        {
+            await HomeModel.UpdateContactsAsync();
+            return HomeModel.Contacts;
+        }
+
+        [Route("api/contacts/id")]
+        [AllowAnonymous]
+        [HttpGet] //возвращает Contact по id
+        public async Task<Contact> GetContactsById(Guid id)
+        {
+            return await HomeModel.GetContactByIdAsync(id);
+        }
+
+        [Route("api/add")]
+        [AllowAnonymous]
+        [HttpPost] //добавляет новый Contact
+        public async Task AddContact([FromBody] Contact contact)
+        {
+            await HomeModel.AddAsync(contact);
+        }
+
+        [Route("api/change/id")]
+        [AllowAnonymous]
+        [HttpPut] //изменяет выделенный Contact
+        public async Task ChangeContact(Guid id, [FromBody] Contact contact)
+        {
+            await HomeModel.ChangeAsync(contact);
+        }
+
+        [Route("api/delete/id")]
+        [AllowAnonymous]
+        [HttpDelete] //удаляет выделенный Contact
+        public async Task Delete(Guid id)
+        {
+            await HomeModel.DeleteAsync(id);
+        }
+
 
         [AllowAnonymous]
         [HttpGet] //передача в главную страницу модели для отображения ее с-ва Contacts

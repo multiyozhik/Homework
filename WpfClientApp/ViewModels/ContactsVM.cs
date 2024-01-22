@@ -1,18 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WpfClientApp.Models;
+using WpfClientApp.Services;
 using WpfClientApp.Views;
 
 namespace WpfClientApp.ViewModels
 {
     public class ContactsVM: INotifyPropertyChanged
     {
-        private readonly ContactsDbContext dbContext;
+        private readonly ContactsApi contactsApi;
 
         private List<Contact>? contactsList;
         public List<Contact>? ContactsList //отслеживаем изменения коллекции контактов
@@ -38,17 +36,25 @@ namespace WpfClientApp.ViewModels
         
         public event PropertyChangedEventHandler? PropertyChanged;//реализуем INotifyPropertyChanged
 
-        public ContactsVM(ContactsDbContext dbContext)
+        public ContactsVM(ContactsApi contactsApiService) // конструктор
         {
-            this.dbContext = dbContext;
-            ContactsList = dbContext.Contacts.ToList();
+            contactsApi = contactsApiService;
+            ContactsList = contactsApi.GetContacts().Result?.ToList(); //УБРАТЬ ИЗ КОНСТРУКТОРА!!!
+            //!!!ВСЕ ВИСИТ - ЕСЛИ Я ТАК ДЕЛАЮ, Т.К. ТУТ СИНХРОННО, А В API АСИНХРОННО И БЛОКИРОВКА
+            //СДЕЛАТЬ ДЛЯ ОКНА ONLOAD И ТАМ CONTACTSLIST И ПОСМОТРЕТЬ АСИНХРОНЩИНУ ДЛЯ RELAYCOMMAND
+        
+            
+        
+        
         }
+
+        
         public Contact? AddedContact { get; set; }
 
         private readonly RelayCommand? addContactCommand;
-        public RelayCommand AddContactCommand                //добавить нового клиента
+        public RelayCommand AddContactCommand                //добавить новый контакт
         {
-            get => addContactCommand ?? new RelayCommand(obj =>
+            get => addContactCommand ?? new RelayCommand(obj =>  
             {
 
                 AddedContact = new Contact();
@@ -57,12 +63,12 @@ namespace WpfClientApp.ViewModels
                     DataContext = AddedContact
                 };
 
+                AddedContact.Id = Guid.NewGuid();
                 var contactDataWindowResult = contactDataWindow.ShowDialog();
                 if (contactDataWindowResult is false) return;
 
-                dbContext.Contacts.Add(AddedContact);
-                dbContext.SaveChanges();
-                ContactsList = dbContext.Contacts.ToList();                
+                contactsApi.AddContact(AddedContact);
+                ContactsList = contactsApi.GetContacts().Result?.ToList();                               
             });
         }
 
@@ -77,9 +83,9 @@ namespace WpfClientApp.ViewModels
                 };
                 var contactDataWindowResult = contactDataWindow.ShowDialog();
                 if (contactDataWindowResult is false) return;
-                dbContext.Contacts.Update(SelectedContact);
-                dbContext.SaveChanges();
-                ContactsList = dbContext.Contacts.ToList();
+
+                contactsApi.ChangeContact(SelectedContact);
+                ContactsList = contactsApi.GetContacts().Result?.ToList();
             });
         }
         
@@ -89,9 +95,9 @@ namespace WpfClientApp.ViewModels
             get => deleteContact ?? new RelayCommand(obj =>
             {
                 if (SelectedContact is null) return;
-                dbContext.Contacts.Remove(SelectedContact);               
-                dbContext.SaveChanges();
-                ContactsList = dbContext.Contacts.ToList();                
+
+                contactsApi.DeleteContact(SelectedContact.Id);
+                ContactsList = contactsApi.GetContacts().Result?.ToList();               
             });
         }
     }

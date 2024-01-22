@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+
 
 namespace WpfClientApp.Models
 {
@@ -42,12 +40,8 @@ namespace WpfClientApp.Models
                         if (!StringIsCorrect(MiddleName))
                             error = "Ошибка ввода отчества. Отчество должно содержать не менее 2 букв";
                         break;
-                    case "PhoneNumber":
-                        //var pattern = new Regex("8-[0-9]{3}-[0-9]{3}-[0-9]{4}");
-                        //var pattern = new Regex("@+7/@([0-9]{3}@)[0-9]{3}-[0-9]{4}");
-                        //var pattern = new Regex("8-[0-9]{3}-[0-9]{3}-[0-9]{4}");
+                    case "PhoneNumber":                        
                         var pattern = new Regex(@"\+7\(\d{3}\)\d{3}-\d{4}");
-
                         if (PhoneNumber is null || !Regex.IsMatch(PhoneNumber, pattern.ToString()))
                             error = "Ошибка ввода номера телефона. Необходимо ввести в формате +7(ххх)ххх-хххх";
                         break;

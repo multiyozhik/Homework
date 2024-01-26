@@ -15,7 +15,7 @@ namespace WpfClientApp.Views
 
         private void DoneButton_Click(object sender, RoutedEventArgs e)
         {
-            this.DialogResult = true;
+            DialogResult = true;
             Close();
         }
 

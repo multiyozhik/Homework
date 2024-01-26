@@ -6,7 +6,7 @@ using System.Windows.Input;
 
 namespace WpfClientApp.ViewModels
 {
-    //в конструктор RelayCommand будем передавать лямбда-выражением действия команды,
+    //в конструктор AsyncRelayCommand будем передавать лямбда-выражением действия команды,
     //второй параметр необязательный - делаем по умолчанию кнопку активной
     public class AsyncRelayCommand: ICommand
     {        

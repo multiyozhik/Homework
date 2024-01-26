@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         
         mc:Ignorable="d"
-        Title="ContactDataWindow" Height="450" Width="800">
+        Title="Сведения о контакте" Height="450" Width="600">
     <Window.Resources>
         <Style TargetType="TextBox">
             <Style.Setters>
@@ -39,7 +39,7 @@
             </Style.Triggers>
         </Style>
     </Window.Resources>
-    <Grid>
+    <Grid Margin="5">
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition/>
@@ -52,12 +52,18 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
-        <TextBlock Text="Фамилия" Grid.Row="0" Grid.Column="0"/>
-        <TextBlock Text="Имя" Grid.Row="1" Grid.Column="0"/>
-        <TextBlock Text="Отчество" Grid.Row="2" Grid.Column="0"/>
-        <TextBlock Text="Номер телефона" Grid.Row="3" Grid.Column="0"/>
-        <TextBlock Text="Адрес" Grid.Row="4" Grid.Column="0"/>
-        <TextBox x:Name="FamilyNameTextBox" Grid.Row="0" Grid.Column="1">
+        <TextBlock Text="Фамилия" Grid.Row="0" Grid.Column="0"
+                   VerticalAlignment="Center" Margin="5" Padding="5"/>
+        <TextBlock Text="Имя" Grid.Row="1" Grid.Column="0"
+                   VerticalAlignment="Center" Margin="5" Padding="5"/>
+        <TextBlock Text="Отчество" Grid.Row="2" Grid.Column="0"
+                   VerticalAlignment="Center" Margin="5" Padding="5"/>
+        <TextBlock Text="Номер телефона" Grid.Row="3" Grid.Column="0"
+                   VerticalAlignment="Center" Margin="5" Padding="5"/>
+        <TextBlock Text="Адрес" Grid.Row="4" Grid.Column="0"
+                   VerticalAlignment="Center" Margin="5" Padding="5"/>
+        <TextBox x:Name="FamilyNameTextBox" Grid.Row="0" Grid.Column="1" 
+                   VerticalAlignment="Center" Margin="5" Padding="5">
             <TextBox.Text>
                 <Binding Path="FamilyName" 
                          Mode="TwoWay"
@@ -69,7 +75,8 @@
                 </Binding>
             </TextBox.Text>
         </TextBox>
-        <TextBox x:Name="NameTextBox" Grid.Row="1" Grid.Column="1">
+        <TextBox x:Name="NameTextBox" Grid.Row="1" Grid.Column="1"
+                 VerticalAlignment="Center" Margin="5" Padding="5">
             <TextBox.Text>
                 <Binding Path="Name"
                          Mode="TwoWay"
@@ -81,7 +88,8 @@
                 </Binding>
             </TextBox.Text>
         </TextBox>
-        <TextBox x:Name="MiddleNameTextBox" Grid.Row="2" Grid.Column="1">
+        <TextBox x:Name="MiddleNameTextBox" Grid.Row="2" Grid.Column="1"
+                 VerticalAlignment="Center" Margin="5" Padding="5">
             <TextBox.Text>
                 <Binding Path="MiddleName" 
                          Mode="TwoWay"
@@ -93,7 +101,9 @@
                 </Binding>
             </TextBox.Text>
         </TextBox>
-        <TextBox x:Name="PhoneNumberTextBox" Grid.Row="3" Grid.Column="1" ToolTip="Введите номер телефона в формате +7(ххх)ххх-хххх">
+        <TextBox x:Name="PhoneNumberTextBox" Grid.Row="3" Grid.Column="1" 
+                 VerticalAlignment="Center" Margin="5" Padding="5"
+                 ToolTip="Введите номер телефона в формате +7(ххх)ххх-хххх">
             <TextBox.Text>
                 <Binding Path="PhoneNumber" 
                          Mode="TwoWay"
@@ -105,7 +115,8 @@
                 </Binding>
             </TextBox.Text>
         </TextBox>
-        <TextBox x:Name="AdressTextBox" Grid.Row="4" Grid.Column="1">
+        <TextBox x:Name="AdressTextBox" Grid.Row="4" Grid.Column="1"
+                 VerticalAlignment="Center" Margin="5" Padding="5">
             <TextBox.Text>
                 <Binding Path="Adress" 
                          Mode="TwoWay"
@@ -117,7 +128,8 @@
                 </Binding>
             </TextBox.Text>
         </TextBox>
-        <Button x:Name="DoneButton" Content="Готово" Grid.Row="5" Grid.ColumnSpan="2"                 
+        <Button x:Name="DoneButton" Content="Сохранить" Grid.Row="5" Grid.ColumnSpan="2" 
+                Padding="5" Margin="5"
                 Click="DoneButton_Click"/>
         <!--IsEnabled="{Binding DoneBtnIsEnable}"-->
     </Grid>

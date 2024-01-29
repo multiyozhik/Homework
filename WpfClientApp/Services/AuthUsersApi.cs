@@ -22,14 +22,15 @@ namespace WpfClientApp.Services
             baseAddress = baseRoute;
         }
 
-        //public async Task<List<AppUser>?> GetUsers()
-        //{
-        //    var uri = new Uri(baseAddress, "/api/contacts");
-        //    var httpResponseMsg = await httpClient.GetAsync(uri);
-        //    return await httpResponseMsg.Content.ReadFromJsonAsync<List<Contact>?>();
-        //}
+        public async Task<List<AppUser>?> GetUsers()
+        {
+            var uri = new Uri(baseAddress, "/api/users");
+            var httpResponseMsg = await httpClient.GetAsync(uri);
 
+            if (!httpResponseMsg.IsSuccessStatusCode) return null; //если не админ
 
+            return await httpResponseMsg.Content.ReadFromJsonAsync<List<AppUser>?>();
+        }
 
         public async Task<bool> Login(LoginVM loginVM)
         {
@@ -63,14 +64,17 @@ namespace WpfClientApp.Services
         {
             var uri = new Uri(baseAddress, "api/logout");
 
-            var httpResponseMsg = await httpClient.GetAsync(
-                requestUri: uri);
+            await httpClient.GetAsync(uri);
         }
 
-        //public async Task DeleteUser(Guid id)
-        //{
-
-        //}
+        public async Task DeleteUser(string id)
+        {
+            var uri = new Uri(baseAddress, $"api/delete/{id}");
+            await httpClient.PostAsync(
+                requestUri: uri,
+                content: new StringContent(id));
+            return;
+        }
     }
 }
 

@@ -24,8 +24,8 @@
                    VerticalAlignment="Center"/>
         <TextBox x:Name="UserNameTextBox" Grid.Row="0" Grid.Column="1" Margin="5" Padding="3"
                    VerticalAlignment="Center" Text="{Binding Username, Mode=OneWayToSource}"/>
-        <TextBox x:Name="PasswordTextBox" Grid.Row="1" Grid.Column="1" Margin="5" Padding="3"
-                   VerticalAlignment="Center" Text="{Binding Password, Mode=OneWayToSource}"/>
+        <PasswordBox x:Name="PasswordTextBox" Grid.Row="1" Grid.Column="1" PasswordChar="*"                      
+                     VerticalAlignment="Center" Margin="5" Padding="3"/>
         <Button x:Name="LoginButton" Content="Войти" Grid.Row="2" Grid.ColumnSpan="2" 
                 Margin="5" Padding="3" Click="LoginButton_Click"/>
     </Grid>

@@ -9,13 +9,14 @@ using WpfClientApp.Views;
 
 namespace WpfClientApp.ViewModels
 {
-    class ContactsVM : INotifyPropertyChanged //класс-DataContext для главного окна ContactsWindow
+    class ContactsVM : INotifyPropertyChanged //DataContext для ContactsWindow
     {
         private readonly ContactsApi contactsApi;
 
         private readonly AuthUsersApi authUsersApi = new(new Uri(BaseRoute.baseAddress));
         public LoginVM? LoginVM { get; set; }
         public RegisterVM? RegisterVM { get; set; }
+        public AppUsersVM? AppUsersVM { get; set; }
 
         private string? currentUserName;
 
@@ -63,6 +64,7 @@ namespace WpfClientApp.ViewModels
             authUsersApi = new AuthUsersApi(new Uri(BaseRoute.baseAddress));
             LoginVM = new LoginVM();
             RegisterVM = new RegisterVM();
+            AppUsersVM = new AppUsersVM(authUsersApi);
         }
 
         public Contact? AddedContact { get; set; }
@@ -132,17 +134,10 @@ namespace WpfClientApp.ViewModels
                 if (loginWindowResult is true)
                 {
                     if (await authUsersApi.Login(LoginVM))
-                    {
                         CurrentUserName = LoginVM.Username;
-                        MessageBox.Show($"{LoginVM.Username} - {LoginVM.Password}");
-                    }                        
                     else
                         MessageBox.Show("Пользователь не найден");
                     return;
-                    
-                    //если сюда доходит, здесь он уже авторизован, залогинился и может пользоваться программой
-                    //приветствие с именем пользователя можем показать
-                    //если у нас админ - то делаем активной кнопку Список пользователей  
                 }
                 else
                     MessageBox.Show("Ошибка ввода");
@@ -163,11 +158,8 @@ namespace WpfClientApp.ViewModels
 
                 if (registerWindowResult is true)
                 {
-                    if (await authUsersApi.Register(RegisterVM))
-                    {
-                        CurrentUserName = RegisterVM.UserName;
-                        MessageBox.Show($"{RegisterVM.UserName} - {RegisterVM.Password}");
-                    }                        
+                    if (await authUsersApi.Register(RegisterVM))                    
+                        CurrentUserName = RegisterVM.UserName;                        
                     else
                         MessageBox.Show(
                             "Ошибка ввода, пользователь с таким именем и паролем уже существует");
@@ -198,8 +190,23 @@ namespace WpfClientApp.ViewModels
         private AsyncRelayCommand? getUsersCommand;
         public AsyncRelayCommand GetUsersCommand                //список пользователей (admin)
         {
-            get => loginCommand ??= new AsyncRelayCommand(async obj =>
+            get => getUsersCommand ??= new AsyncRelayCommand(async obj =>
             {
+                var appUsersList = await authUsersApi.GetUsers();
+                if (appUsersList is null)
+                {
+                    MessageBox.Show("Пользователь не является администратором");
+                    return;
+                }
+                AppUsersVM.AppUsersList = appUsersList;
+
+                var appUsersWindow = new AppUsersWindow()
+                {                    
+                    DataContext = AppUsersVM
+                };
+
+                appUsersWindow.ShowDialog();
+
                 return;
             });
         }

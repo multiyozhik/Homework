@@ -26,7 +26,8 @@
                             Command="{Binding LoginCommand}"/>
                     <Button Content="Регистрация" Margin="5" Padding="3"
                             Command="{Binding RegisterCommand}"/>
-                    <Button Content="Список пользователей" Margin="5" Padding="3"/>
+                    <Button Content="Список пользователей" Margin="5" Padding="3" 
+                            Command="{Binding GetUsersCommand}"/>
                     <TextBlock Text="{Binding CurrentUserName}" Margin="5" Padding="3"
                                VerticalAlignment="Center"/>
                     <Button Content="Выйти" Margin="5" Padding="3"

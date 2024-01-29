@@ -1,6 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System.Diagnostics.Contracts;
-using System.Reflection.Metadata;
 
 namespace _21_NotebookDb.Models
 {

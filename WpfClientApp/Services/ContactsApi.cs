@@ -1,15 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net.Http;
-using WpfClientApp.Models;
 using System.Net.Http.Json;
-using System.Threading.Tasks;
-using System.Runtime.ConstrainedExecution;
-using System.Security.Policy;
-using System.Text.Json.Serialization;
 using System.Text;
 using System.Text.Json;
-using static System.Net.WebRequestMethods;
+using System.Threading.Tasks;
+using WpfClientApp.Models;
 
 namespace WpfClientApp.Services
 {

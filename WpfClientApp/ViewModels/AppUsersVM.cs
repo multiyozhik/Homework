@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WpfClientApp.Services;
-using WpfClientApp.Views;
 
 namespace WpfClientApp.ViewModels
 {

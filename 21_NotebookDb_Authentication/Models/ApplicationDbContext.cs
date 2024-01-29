@@ -1,7 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using System.Runtime.CompilerServices;
-using Microsoft.AspNetCore.Identity;
 
 namespace _21_NotebookDb.Models
 {

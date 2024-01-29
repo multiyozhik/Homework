@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Mvc.TagHelpers;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace _21_NotebookDb.Models
 {

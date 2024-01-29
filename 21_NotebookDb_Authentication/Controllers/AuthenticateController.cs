@@ -1,12 +1,6 @@
-﻿
-using _21_NotebookDb.Models;
-using Microsoft.AspNetCore.Authorization;
+﻿using _21_NotebookDb.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
 
 namespace _21_NotebookDb.Controllers
 {
@@ -57,30 +51,12 @@ namespace _21_NotebookDb.Controllers
             return View(model);
         }
 
-        [Route("api/login")]  //api login-метод 
-        [HttpPost]
-        // !!![FromBody] важно, иначе null в свойствах модели, т.к. где-то в FromForm искал
-        public async Task<StatusCodeResult> ApiLogin([FromBody] LoginModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                var loginResult = await _signInManager.PasswordSignInAsync(model.Username,
-                    model.Password,
-                    false,
-                    lockoutOnFailure: false);
-
-                if (!loginResult.Succeeded)
-                    return new StatusCodeResult(401);
-            }
-            return new StatusCodeResult(200);
-        }
-
-
         [HttpGet]
         public IActionResult Register()
         {
             return View(new RegisterModel());
         }
+
 
         [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterModel model)
@@ -106,24 +82,6 @@ namespace _21_NotebookDb.Controllers
             return View(model);
         }
 
-        [Route("api/register")]  //api register-метод
-        [HttpPost]
-        public async Task<StatusCodeResult> ApiRegister([FromBody] RegisterModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                var user = new ApplicationUser { UserName = model.UserName };
-                var createResult = await _userManager.CreateAsync(user, model.Password);
-
-                if (!createResult.Succeeded)
-                {
-                    await _signInManager.SignInAsync(user, false);
-                    return new StatusCodeResult(401); 
-                }
-            }
-            return new StatusCodeResult(200);
-        }
-
 
         [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
@@ -131,14 +89,6 @@ namespace _21_NotebookDb.Controllers
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
-
-        [Route("api/logout")]
-        [HttpGet, ValidateAntiForgeryToken]
-        public async Task LogOut()  // api logout метод
-        {
-            await _signInManager.SignOutAsync();
-        }
-
     }
 }
 

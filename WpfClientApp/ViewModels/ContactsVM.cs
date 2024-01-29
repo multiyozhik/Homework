@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Query.Internal;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows;
@@ -192,22 +191,23 @@ namespace WpfClientApp.ViewModels
         {
             get => getUsersCommand ??= new AsyncRelayCommand(async obj =>
             {
-                var appUsersList = await authUsersApi.GetUsers();
-                if (appUsersList is null)
+                try
                 {
-                    MessageBox.Show("Пользователь не является администратором");
+                    var appUsersList = await authUsersApi.GetUsers();
+                    AppUsersVM.AppUsersList = appUsersList;
+
+                    var appUsersWindow = new AppUsersWindow()
+                    {
+                        DataContext = AppUsersVM
+                    };
+                    appUsersWindow.ShowDialog();
                     return;
                 }
-                AppUsersVM.AppUsersList = appUsersList;
 
-                var appUsersWindow = new AppUsersWindow()
-                {                    
-                    DataContext = AppUsersVM
-                };
-
-                appUsersWindow.ShowDialog();
-
-                return;
+                catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }                  
             });
         }
 

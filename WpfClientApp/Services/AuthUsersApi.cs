@@ -1,13 +1,10 @@
-﻿using Microsoft.Identity.Client;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
-using System.Windows;
 using WpfClientApp.ViewModels;
 
 namespace WpfClientApp.Services
@@ -27,7 +24,10 @@ namespace WpfClientApp.Services
             var uri = new Uri(baseAddress, "/api/users");
             var httpResponseMsg = await httpClient.GetAsync(uri);
 
-            if (!httpResponseMsg.IsSuccessStatusCode) return null; //если не админ
+            if (!httpResponseMsg.IsSuccessStatusCode)
+            {
+                throw new Exception("Пользователь не является администратором");
+            }                    
 
             return await httpResponseMsg.Content.ReadFromJsonAsync<List<AppUser>?>();
         }

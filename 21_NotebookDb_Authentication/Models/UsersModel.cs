@@ -1,7 +1,4 @@
-﻿using System.Data.Entity;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
 
 
 namespace _21_NotebookDb.Models
